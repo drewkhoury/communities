@@ -1,4 +1,4 @@
-baseurl = "https://XXX.pages.github.io/"
+baseurl = "https://drewkhoury.github.io/communities/"
 languageCode = "en-us"
 title = "Communities"
 theme = "hugo-cards"
