@@ -5,6 +5,9 @@ theme = "hugo-cards"
 themesDir = "./themes/"
 paginate = 9
 
+RelativeURLs=true
+CanonifyURLs=true
+
 [taxonomies]
   category = 'categories'
   series = 'series'
