@@ -1,0 +1,24 @@
+{{ define "main" }}
+<div class="home">
+  <h1>{{ .Title }}</h1>
+  <p>{{ .Content }}</p>
+  <div class="row  pack">
+    {{ if (eq .Type "stages") }}
+      {{ $paginator := .Paginate (where .Site.RegularPages "Section" "stages") }}
+      {{ range $paginator.Pages }}
+      <div class="col-md-4 mt-3">
+        <a href="{{ .Permalink }}" class="index-anchor">
+        <div class="card h-100 shadow p-3 mb-5 bg-white rounded">
+          <div class="card-body">
+            <h3 class="card-title">{{ .Title | truncate 50 }}</h3>
+            <p class="card-text"><small>{{ .Summary | plainify | truncate 200 }}</small></p>
+          </div>
+        </div>
+        </a>
+      </div>
+      {{ end }}
+    {{ end }}
+  </div>
+</div>
+<br /><br />
+{{ end }}

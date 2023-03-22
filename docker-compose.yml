@@ -1,0 +1,26 @@
+version: '3'
+services:
+
+  serve-site:
+    image: klakegg/hugo:0.107.0-alpine
+    command: 'server -D --watch --bind 0.0.0.0 -d docs-local/ --verbose'
+    volumes:
+      - .:/src
+    ports:
+      - '1313:1313'
+
+  build-prod:
+    image: klakegg/hugo:0.107.0-alpine
+    command: '--minify'
+    volumes:
+      - .:/src
+
+  hugo:
+    image: klakegg/hugo:0.107.0-alpine
+    volumes:
+      - .:/src
+
+  utility:
+    image: alpine:latest
+    volumes:
+      - .:/src

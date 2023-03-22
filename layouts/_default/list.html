@@ -1,0 +1,67 @@
+{{ define "main" }}
+
+<div class="home">
+
+    <h1>{{ .Title }}</h1>
+
+    <p>{{ .Content }}</p>
+    <div class="row pack">
+
+        {{ $paginator := .Paginate (where .Site.RegularPages "Section" "communities") }}
+        {{ range sort ($paginator.Pages.ByParam "title") ".Params.stage" "desc" }}
+        <div class="col-md-4 mt-3">
+        <a href="{{ .Permalink }}" class="index-anchor">
+
+          <div class="card h-100 shadow p-3 mb-5 bg-white rounded">
+            <div class="card-header">
+              {{ if .Params.img }}
+              {{ with .Resources.Match .Params.img }}
+                {{ range . }}
+                  <img width="100%" src="{{ .RelPermalink }}" alt="{{ .Title }}">
+                {{ end }}
+              {{ end }}
+              {{ else }}
+              <img width="100%" src="{{ .Site.BaseURL }}images/{{ .Site.Params.defaultImage }}" alt="{{ .Site.Title }}">
+              {{ end }}
+            </div>
+
+            <div class="card-body">
+              <div class="panel-body">
+                <div class="col-10-md">
+                <h3 class="panel-title pull-left">{{ .Title | truncate 50 }}</h3><span class="post-meta pull-right">
+                </div>
+                <!--This is a map that stores all the different colors, we convert that integer value from the stage of the community to a string. It shows the appropriate color for the stage of the community. This is using a karate belt system-->
+                  {{ $stageColors := newScratch }}
+
+                  {{ $stageColors.Set  "1" "lightblue" }}
+                  {{ $stageColors.Set  "2" "navy" }}
+                  {{ $stageColors.Set  "3" "lightgreen" }}
+                  {{ $stageColors.Set  "4" "green" }}
+                  {{ $stageColor := $stageColors.Get  ( string .Params.stage ) }}
+
+                 <div class="col-2-md text-right">
+                   <a href='/stages/{{.Params.stage}}'>
+                <span  class="badge badge-pill" style='background-color: {{ $stageColor }}'>Stage {{ .Params.stage }}</span>
+                  {{ partial "debug" ($stageColor) }}
+                   </a>
+                </div>
+
+              </div>
+
+              <div class="panel-body"><small>
+                {{ .Summary | plainify | truncate 200 }}</small>
+              </div>
+            </div>
+          </div>
+        </a>
+        </div>
+          {{ end }}
+
+    </div>
+
+
+</div>
+
+<br /><br /><br />
+
+{{ end }}

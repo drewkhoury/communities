@@ -1,0 +1,15 @@
+{{ define "main" }}
+
+<section class="Summary">
+  <div class="container-fluid">
+    <div class="col-md-9">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-content" itemprop="articleBody">{{ .Content }}</div>
+        <a href="communities/"><img width="100%" height="100%" src="/images/community.jpg" alt=""></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+{{ partial "fb-script.html" . }}
+{{ end }}

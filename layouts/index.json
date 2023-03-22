@@ -1,0 +1,13 @@
+
+{{- $.Scratch.Add "pagesIndex" slice -}}
+{{- range $index, $page := .Site.RegularPages -}}
+  {{- if eq $page.Type "post" -}}
+    {{- if gt (len $page.Content) 0 -}}
+      {{- $pageData := (dict "title" $page.Title "href" (delimit $page.Title " ; ") "content" $page.Plain) -}}
+      {{- $.Scratch.Add "pagesIndex" $pageData -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $.Scratch.Get "pagesIndex" | jsonify -}}
+
+// $page.Permalink "categories"  for later use for cats of pages and post

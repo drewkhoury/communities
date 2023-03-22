@@ -1,0 +1,105 @@
+{{ define "main" }}
+<div class="container">
+
+  <div class="row">
+
+
+    <div class="col-md-8">
+
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+        <header class="post-header">
+          <h1 class="post-title" itemprop="name headline">{{ .Title }}</h1>
+        </header>
+
+        <div class="post-content" itemprop="articleBody">
+
+          {{ if .Params.img }}
+            {{ with .Resources.Match .Params.img }}
+              {{ range . }}<img width="50%" height="auto" src="{{ .RelPermalink }}" alt="{{ .Title }}">{{ end }}
+            {{ end }}
+          {{ else }}
+            <img width="100%" height="auto" src="{{ .Site.BaseURL }}images/{{ .Site.Params.defaultImage }}" alt="webjeda">
+          {{ end }}
+
+          <br />
+
+          <br /><br />
+
+          {{ .Content }}
+
+      </div>
+
+
+  </div>
+
+
+  <div class="col-lg-4">
+
+
+
+    <div class="container">
+      <div class="col-sm-12 ">
+        <div class=" card shadow p-3 mb-5 bg-body rounded">
+
+              <div class="card-body" >
+
+                <h3 class='text-center'>Community Lead</h3>
+
+                {{ if not ( eq .Params.lead_img "null" ) }}
+                  {{ with .Resources.Match .Params.lead_img }}{{ range . }}<img width="100%" height="auto" src="{{ .RelPermalink }}" alt="{{ .Title }}">{{ end }}
+                {{ else }}
+                  <img width="100%" height="auto" src="/images/Default_pfp.svg.png" alt="{{ .Title }}">
+                {{ end }}
+                {{ end }}
+
+              </div>
+
+      </div>
+
+      <div class=" card shadow p-3 mb-5 bg-body rounded">
+      <div class="row mt-3">
+        <h3 class='text-center'>Key Members</h3>
+        <div style="display: flex; justify-content: center;">
+          {{$members := .Params.keyMembers}}
+          {{ with .Params.keyMembers }}
+
+          {{ $membersCount := len $members }}
+          {{$colSize := (div 12 $membersCount)}}
+          {{ range . }}
+              {{ $name_key_value := (index . "name") }}
+              {{ $image_key_value  := newScratch }}
+              {{ if(not (eq (index . "image") "")) }}
+              {{ $image_key_value.Set  "image" (index . "image") }}
+              {{ partial "debug" (index . "image")}}
+            {{else}}
+            {{ $image_key_value.Set "image" "/images/Default_pfp.svg.png" }}
+            {{end}}
+            {{ $image_value := ($image_key_value.Get "image") }}
+              {{ $teams_key_value := (index . "teamsLink") }}
+
+              <div class="col-sm-{{$colSize}} ">
+              <a href="{{$teams_key_value}}" class="w-sm-150p" data-toggle="tooltip" title="{{$name_key_value}}">
+                <img width="45px" height="auto" class="img-fluid rounded" src='{{$image_value}}'
+                  alt="Card image cap" />
+              </a>
+
+          </div>
+          {{ end }}
+      {{ end }}
+        </div>
+      </div>
+
+
+
+      </div>
+
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+
+{{ end }}
