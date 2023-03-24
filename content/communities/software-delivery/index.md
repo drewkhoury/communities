@@ -12,14 +12,14 @@ stage: 3
 github: https://github.com/XXX
 
 # leader info
-lead_img: drew-avatar.png
+lead_img: drew.jpg
 
 # team info
 keyMembers: {
+  "Kyle":  {"name": "Kyle T"   , "image": kyle.png },
   "Andy":  {"name": "Andrew O"   , "image": andy.jpeg },
+  "Drew": {"name": Drew Khoury,"image": drew.jpg,},
   "Chris": {"name": "Chris H"   , "image": hart.jpeg },
-  "Kyle":  {"name": "Kyle T"       , "image": kyle.jpeg },
-  "Jose":  {"name": "Jose D", "image": jose.png  },
 }
 ---
 
